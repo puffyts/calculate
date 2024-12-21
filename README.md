@@ -59,14 +59,14 @@
 Result:
 > <h4>{"result":2} <h4>
 
->[!WARNING] 400 (Bad Request) <h4>curl 'localhost:8000/api/v1/calculate' \
+>400 (Bad Request) <h4>curl 'localhost:8000/api/v1/calculate' \
 >--header 'Content-Type: application/json' \
 >--data 'feijhgoerhn' <h4>
 >
 Result: 
 >{"error":"calculation error, incorrect expression"}
 
->[!WARNING] 405 (Wrong Method) 
+> 405 (Wrong Method) 
 > <h4>curl --request GET 'localhost:4200/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{"expression":"1+1"}'<h4>
@@ -74,7 +74,7 @@ Result:
 Result:
 > {"error":"Method is not allowed"}
 
->[!WARNING] 422 (Unprocessable Entity)
+> 422 (Unprocessable Entity)
 <h4>curl 'localhost:4200/api/v1/calculate' \
 --header 'Content-Type: application/json' \
 --data '{"expression":"1+"}' <h4>
