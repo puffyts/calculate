@@ -9,7 +9,7 @@
 > Division "/" <br/>
 > Brackets "()"
 
->[!IMPORTANT]HTTP Status codes, that provides calculator:
+>HTTP Status codes, that provides calculator:
 <table>
   </thead>
   <tbody>
@@ -45,7 +45,7 @@
 </tr>
 </tbody></table><br>
 
-> [!IMPORTANT] To start program you need to write this these lines to the terminal:
+> To start program you need to write this these lines to the terminal:
  <h3> go run cmd/main/main.go
 
 <h2> Examples: </h2>
