@@ -1,12 +1,8 @@
 package main
 
-import (
-	"github.com/solverANDimprover/calc_go/internal/handlers"
-	"net/http"
-)
+import "github.com/solverANDimprover/calc_go/config"
 
 func main() {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/api/v1/calculate", handlers.CalculateHandler)
-	http.ListenAndServe(":8000", mux)
+	application := config.NewApplication()
+	application.StartServer()
 }

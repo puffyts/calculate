@@ -29,7 +29,7 @@ func CalculateHandler(w http.ResponseWriter, r *http.Request) {
 	response.Result = res
 	responseJson, err := json.Marshal(response)
 	if err != nil {
-		w.WriteHeader(500)
+		http.Error(w, `{error: "Internal server error"")`, 500)
 	}
 	w.Write(responseJson)
 }
