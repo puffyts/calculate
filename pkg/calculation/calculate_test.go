@@ -1,7 +1,7 @@
 package calculation_test
 
 import (
-	"github.com/solverANDimprover/calc_go/pkg"
+	calculation2 "github.com/solverANDimprover/calc_go/pkg/calculation"
 	"testing"
 )
 
@@ -36,21 +36,21 @@ func TestCalc(t *testing.T) {
 		{
 			expression:     "((2+1)",
 			expectedresult: 0,
-			err:            calculation.ErrMismatchedParentheses,
+			err:            calculation2.ErrMismatchedParentheses,
 		},
 		{
 			expression:     "7/0",
 			expectedresult: 0,
-			err:            calculation.ErrDivisionByZero,
+			err:            calculation2.ErrDivisionByZero,
 		},
 		{
 			expression:     "+7+",
 			expectedresult: 0,
-			err:            calculation.ErrUnmatchedOperator,
+			err:            calculation2.ErrUnmatchedOperator,
 		},
 	}
 	for _, test := range testCases {
-		result, err := calculation.Calc(test.expression)
+		result, err := calculation2.Calc(test.expression)
 		if result != test.expectedresult {
 			t.Fatalf("expected result: %.2f, got %.2f", test.expectedresult, result)
 		}
