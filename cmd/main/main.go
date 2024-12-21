@@ -7,6 +7,6 @@ import (
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", handlers.CalculateHandler)
+	mux.HandleFunc("/api/v1/calculate", handlers.CalculateHandler)
 	http.ListenAndServe(":8000", mux)
 }
