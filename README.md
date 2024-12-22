@@ -52,9 +52,8 @@
 
 >[!NOTE] 
 > 200 OK<br>
-> <h4>curl 'localhost:8000/api/v1/calculate' \
->--header 'Content-Type: application/json' \
->--data '{"expression":"1+1"}' <h4>
+> <h4>curl -X POST localhost:8000/api/v1/calculate -H 'Content-Type: application/json' -d '{"expression":"2+2"}'
+<h4>
 > 
 > Result:
 > <h4>{"result":2} <h4>
