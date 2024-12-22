@@ -1,15 +1,15 @@
 # calc_go
 > ✨
-> It`s a web service, based on math expressions using numbers, signs as "+", "-", "*" and "/".
+> ***It`s a web service, based on math expressions using numbers, signs as "+", "-", "*" and "/".
 > which calculates the value of the resulting expression✨<br/>
 > <h3>Calculator supports next operations:<h3>
 > <h4> Add "+"<br/>
 > Subtraction "-" <br/>
 >Multiply * <br/>
 > Division "/" <br/>
-> Brackets "()"
+ Brackets "()"** 
 
->HTTP Status codes, that provides calculator:
+>**HTTP Status codes, that provides calculator:**
 <table>
   </thead>
   <tbody>
@@ -45,8 +45,8 @@
 </tr>
 </tbody></table><br>
 
-> To start program you need to write this these lines to the terminal:
- <h3> go run cmd/main/main.go
+> **To start program you need to write this these lines to the terminal:
+ <h3> go run cmd/main/main.go**
 
 <h2> Examples: </h2>
 
@@ -56,7 +56,7 @@
 >--header 'Content-Type: application/json' \
 >--data '{"expression":"1+1"}' <h4>
 > 
-Result:
+> Result:
 > <h4>{"result":2} <h4>
 
 >400 (Bad Request) <h4>curl 'localhost:8000/api/v1/calculate' \
