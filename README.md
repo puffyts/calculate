@@ -58,7 +58,7 @@
 > Result:
 > <h4>{"result":2} <h4>
 
->400 (Bad Request) <h4>curl 'localhost:8000/api/v1/calculate' \
+>400 (Bad Expression) <h4>curl 'localhost:8000/api/v1/calculate' \
 >--header 'Content-Type: application/json' \
 >--data 'feijhgoerhn' <h4>
 >

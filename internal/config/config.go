@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/solverANDimprover/calc_go/internal/handlers"
+	"github.com/solverANDimprover/calc_go/internal/transport/http_transport/handler"
 	"log"
 	"net/http"
 	"os"
@@ -34,7 +34,7 @@ func NewApplication() *Application {
 
 func (a *Application) StartServer() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/api/v1/calculate", handlers.CalculateHandler)
+	mux.HandleFunc("/api/v1/calculate", handler.CalculateHandler)
 	a.INFOLogger.Printf("Server started at :%s", a.config.Addr)
 	a.ERRORLogger.Fatal(http.ListenAndServe(":"+a.config.Addr, mux))
 }
