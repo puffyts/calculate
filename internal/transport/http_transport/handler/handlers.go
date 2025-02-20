@@ -3,12 +3,12 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/solverANDimprover/calc_go/internal/service"
+	"github.com/solverANDimprover/calc_go/internal/repository"
 	"github.com/solverANDimprover/calc_go/internal/transport/http_transport/models"
+	"github.com/solverANDimprover/calc_go/pkg/tools"
 	"io"
 	"net/http"
 	"strconv"
-	"sync"
 )
 
 type Service interface {
@@ -17,13 +17,11 @@ type Service interface {
 }
 
 type Handler struct {
-	service  Service
-	taskChan chan *models.Expression
-	mutex    sync.Mutex
+	service Service
 }
 
 func NewHandler(service Service, ComputingPower int) *Handler {
-	return &Handler{service: service, taskChan: make(chan *models.Expression, ComputingPower)}
+	return &Handler{service: service}
 }
 
 func (h *Handler) addTask(w http.ResponseWriter, r *http.Request) {
@@ -38,9 +36,9 @@ func (h *Handler) addTask(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, `{"error":"Expression is not valid"}`, 422)
 		return
 	}
-	id := service.NewCryptoRand()
+	id := tools.NewCryptoRand()
 	expr := models.NewExpression(id, false, "in process", req)
-	h.taskChan <- expr
+	repository.Tasks.Add(id, expr)
 	w.WriteHeader(http.StatusCreated)
 	fmt.Fprint(w, fmt.Sprintf(`{"id":%d}`, id))
 
@@ -54,25 +52,23 @@ func (h *Handler) addTask(w http.ResponseWriter, r *http.Request) {
 	//w.Write(responseJson)
 }
 func (h *Handler) getTasks(w http.ResponseWriter, r *http.Request) {
-	var tasks []models.Expression
-	for taskPtr := range h.taskChan {
-		tasks = append(tasks, *taskPtr)
-	}
+	tasks := repository.Tasks.GetValues()
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(tasks)
 }
 
 func (h *Handler) getTask(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.URL.Path[len("/api/v1/expressions/"):])
-
 	if err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
 	}
-	for task := range h.taskChan {
-		if task.ID == id {
-			w.Header().Set("Content-Type", "application/json")
-			json.NewEncoder(w).Encode(task)
-			return
-		}
+	task, err := repository.Tasks.Get(id)
+	if err != nil {
+		http.Error(w, "Taкой задачи нет", http.StatusNotFound)
+		return
 	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(task)
+
 }
