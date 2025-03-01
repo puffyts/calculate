@@ -1,4 +1,4 @@
-package syncMap
+package SyncMap
 
 import (
 	"errors"
@@ -25,8 +25,8 @@ func (m *SyncMap) Delete(key any) {
 func (m *SyncMap) GetValues() []any {
 	var array []any
 	m.mu.Lock()
-	for value := range m.m {
-		array = append(array, value)
+	for key := range m.m {
+		array = append(array, m.m[key])
 	}
 	m.mu.Unlock()
 	return array
@@ -41,4 +41,8 @@ func (m *SyncMap) Get(key any) (any, error) {
 	}
 	m.mu.Unlock()
 	return value, nil
+}
+
+func NewSyncMap() *SyncMap {
+	return &SyncMap{m: make(map[any]any), mu: sync.Mutex{}}
 }

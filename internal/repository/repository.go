@@ -1,5 +1,7 @@
 package repository
 
-import "github.com/solverANDimprover/calc_go/pkg/syncMap"
+import "github.com/solverANDimprover/calc_go/pkg/SyncMap"
 
-var Tasks = syncMap.SyncMap{}
+var Expressions = SyncMap.NewSyncMap()
+var InWork []int
+var NotInWork []int

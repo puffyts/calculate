@@ -2,9 +2,14 @@ package main
 
 import (
 	"github.com/solverANDimprover/calc_go/internal/config"
+	handler2 "github.com/solverANDimprover/calc_go/internal/orchestrator/http_transport/handler"
+	"github.com/solverANDimprover/calc_go/internal/orchestrator/http_transport/router"
 )
 
 func main() {
-	application := config.NewApplication()
-	application.StartServer()
+	cfg := config.New()
+	handler := handler2.NewHandler()
+	router := router.NewRouter(cfg.RouterConfig, handler)
+	router.Run()
+
 }
