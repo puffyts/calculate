@@ -31,9 +31,9 @@ func (h *Handler) AddExpression(ctx echo.Context) error {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, "Invalid expression")
 	}
 	id := tools.NewCryptoRand()
-	expr := models.NewExpression(id, false, "in process", req)
+	expr := models.NewExpression(id, false, 0, req)
 	repository.Expressions.Add(id, expr)
-	repository.NotInWork = append(repository.NotInWork, id)
+	repository.NotInWork <- *expr
 	ctx.Response().WriteHeader(http.StatusCreated)
 	return nil
 }
@@ -76,7 +76,6 @@ func (h *Handler) ExpressionForWork(ctx echo.Context) error {
 	if len(repository.NotInWork) == 0 {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, "No available work")
 	}
-	id := repository.NotInWork[0]
-	expression, _ := repository.Expressions.Get(id)
-	return ctx.JSON(http.StatusOK, expression)
+	expr := <-repository.NotInWork
+	return ctx.JSON(http.StatusOK, expr)
 }
