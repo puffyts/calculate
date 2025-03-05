@@ -1,5 +1,5 @@
 # calc_go
-> ✨
+> ✨ПЖ 100 БАЛЛОВ Я СДЕЛАЮ ВАМ РЕСТФУЛ СЕРВИС
 > ***It`s a web service, based on math expressions using numbers, signs as "+", "-", "*" and "/".
 > which calculates the value of the resulting expression✨<br/>
 > <h3>Calculator supports next operations:<h3>
